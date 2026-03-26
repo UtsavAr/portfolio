@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Utsav Kumar — Full-Stack Developer Portfolio</title>
+  <meta name="description" content="Portfolio of Utsav Kumar, a passionate Full-Stack Developer building modern web experiences." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: hsl(220,20%,6%);
+      --fg: hsl(210,20%,92%);
+      --card: hsl(220,18%,10%);
+      --primary: hsl(160,84%,39%);
+      --primary-fg: hsl(220,20%,6%);
+      --secondary: hsl(220,16%,14%);
+      --secondary-fg: hsl(210,20%,80%);
+      --muted: hsl(215,12%,50%);
+      --border: hsl(220,14%,18%);
+      --radius: 0.75rem;
+    }
+
+    ::selection { background: hsla(160,84%,39%,0.3); }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--fg);
+      -webkit-font-smoothing: antialiased;
+      line-height: 1.6;
+    }
+
+    .mono { font-family: 'JetBrains Mono', monospace; }
+
+    a { color: inherit; text-decoration: none; }
+
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 1.5rem; }
+
+    /* ---------- utilities ---------- */
+    .text-gradient {
+      background: linear-gradient(to right, var(--primary), #34d399, #5eead4);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .glass-card {
+      background: hsla(220,18%,10%,0.6);
+      backdrop-filter: blur(24px);
+      border: 1px solid hsla(220,14%,18%,0.5);
+      border-radius: var(--radius);
+    }
+
+    .glow { box-shadow: 0 0 20px hsla(160,84%,39%,0.15), 0 0 60px hsla(160,84%,39%,0.05); }
+
+    .glass-card:hover {
+      border-color: hsla(160,84%,39%,0.3);
+      box-shadow: inset 0 0 20px hsla(160,84%,39%,0.05);
+    }
+
+    .grid-bg {
+      background-image:
+        linear-gradient(hsla(220,14%,18%,0.5) 1px, transparent 1px),
+        linear-gradient(90deg, hsla(220,14%,18%,0.5) 1px, transparent 1px);
+      background-size: 60px 60px;
+    }
+
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: .5rem;
+      padding: .75rem 1.5rem; border-radius: var(--radius);
+      background: var(--primary); color: var(--primary-fg);
+      font-weight: 600; font-size: .875rem;
+      transition: opacity .2s;
+    }
+    .btn-primary:hover { opacity: .9; }
+
+    .btn-outline {
+      display: inline-flex; align-items: center; gap: .5rem;
+      padding: .75rem 1.5rem; border-radius: var(--radius);
+      border: 1px solid var(--border); font-weight: 600; font-size: .875rem;
+      transition: border-color .2s;
+    }
+    .btn-outline:hover { border-color: hsla(160,84%,39%,0.5); }
+
+    .btn-resume {
+      display: inline-flex; align-items: center; gap: .5rem;
+      padding: .75rem 1.5rem; border-radius: var(--radius);
+      border: 1px solid hsla(160,84%,39%,0.5); color: var(--primary);
+      font-weight: 600; font-size: .875rem; transition: background .2s;
+    }
+    .btn-resume:hover { background: hsla(160,84%,39%,0.1); }
+
+    .icon-btn {
+      padding: .75rem; border-radius: var(--radius);
+      border: 1px solid var(--border); color: var(--muted);
+      transition: color .2s, border-color .2s;
+    }
+    .icon-btn:hover { color: var(--primary); border-color: hsla(160,84%,39%,0.5); }
+
+    .tag {
+      padding: .25rem .5rem; border-radius: .25rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: .75rem; color: var(--primary);
+      background: hsla(160,84%,39%,0.1);
+    }
+
+    .skill-tag {
+      padding: .5rem 1rem; font-size: .875rem; font-weight: 500;
+      border-radius: .375rem; background: var(--secondary);
+      color: var(--secondary-fg); border: 1px solid var(--border);
+      transition: border-color .2s;
+    }
+    .skill-tag:hover { border-color: hsla(160,84%,39%,0.4); }
+
+    .section-label { font-family: 'JetBrains Mono', monospace; color: var(--primary); font-size: .875rem; margin-bottom: .5rem; }
+    .section-title { font-size: 1.875rem; font-weight: 700; margin-bottom: 3rem; }
+    @media(min-width:768px){ .section-title { font-size: 2.25rem; } }
+
+    section { padding: 6rem 0; }
+
+    /* ---------- animations ---------- */
+    @keyframes fadeUp { from { opacity:0; transform:translateY(30px); } to { opacity:1; transform:translateY(0); } }
+    @keyframes fadeLeft { from { opacity:0; transform:translateX(-30px); } to { opacity:1; transform:translateX(0); } }
+    @keyframes fadeRight { from { opacity:0; transform:translateX(30px); } to { opacity:1; transform:translateX(0); } }
+    @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-20px)} }
+    @keyframes bounce { 0%,100%{transform:translateY(0)} 50%{transform:translateY(8px)} }
+
+    .anim { opacity: 0; }
+    .anim.visible { animation: fadeUp .6s ease-out forwards; }
+    .anim-left.visible { animation: fadeLeft .6s ease-out forwards; }
+    .anim-right.visible { animation: fadeRight .6s ease-out forwards; }
+
+    .float { animation: float 6s ease-in-out infinite; }
+
+    /* ---------- SVG icons inline ---------- */
+    .icon { width: 20px; height: 20px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+    .icon-sm { width: 14px; height: 14px; }
+    .icon-lg { width: 24px; height: 24px; }
+
+    /* ---------- NAV ---------- */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 50;
+      transition: background .3s, box-shadow .3s, border .3s;
+    }
+    nav.scrolled {
+      background: hsla(220,18%,10%,0.6);
+      backdrop-filter: blur(24px);
+      border-bottom: 1px solid hsla(220,14%,18%,0.5);
+      box-shadow: 0 4px 30px rgba(0,0,0,.3);
+    }
+    nav .nav-inner { display: flex; align-items: center; justify-content: space-between; padding: 1rem 1.5rem; max-width: 1200px; margin: 0 auto; }
+    nav .logo { font-family: 'JetBrains Mono', monospace; font-weight: 700; font-size: 1.125rem; color: var(--primary); }
+    nav .links { display: none; align-items: center; gap: 2rem; }
+    nav .links a { font-size: .875rem; color: var(--muted); font-weight: 500; transition: color .2s; }
+    nav .links a:hover { color: var(--primary); }
+    @media(min-width:768px){ nav .links { display: flex; } .mobile-toggle { display: none !important; } }
+
+    .mobile-toggle { background: none; border: none; color: var(--fg); cursor: pointer; }
+    .mobile-menu { display: none; padding: 0 1.5rem 1.5rem; }
+    .mobile-menu.open { display: block; }
+    .mobile-menu a { display: block; padding: .75rem 0; color: var(--muted); transition: color .2s; }
+    .mobile-menu a:hover { color: var(--primary); }
+
+    /* ---------- HERO ---------- */
+    .hero { min-height: 100vh; display: flex; align-items: center; justify-content: center; text-align: center; position: relative; overflow: hidden; }
+    .hero .orb { position: absolute; border-radius: 50%; filter: blur(120px); }
+    .hero .orb1 { width: 24rem; height: 24rem; top: 25%; left: 25%; background: hsla(160,84%,39%,0.1); }
+    .hero .orb2 { width: 18rem; height: 18rem; bottom: 25%; right: 25%; background: hsla(160,84%,39%,0.05); animation-delay: 3s; }
+    .profile-img { width: 8rem; height: 8rem; border-radius: 50%; overflow: hidden; border: 2px solid hsla(160,84%,39%,0.5); margin: 0 auto 1.5rem; }
+    @media(min-width:768px){ .profile-img { width: 10rem; height: 10rem; } }
+    .profile-img img { width: 100%; height: 100%; object-fit: cover; }
+    .hero h1 { font-size: 3rem; font-weight: 700; margin-bottom: 1.5rem; letter-spacing: -0.02em; }
+    @media(min-width:768px){ .hero h1 { font-size: 4.5rem; } }
+    @media(min-width:1024px){ .hero h1 { font-size: 6rem; } }
+    .hero .subtitle { font-size: 1.125rem; color: var(--muted); max-width: 640px; margin: 0 auto 2rem; }
+    .hero .buttons { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 1rem; margin-bottom: 3rem; }
+    .hero .socials { display: flex; justify-content: center; gap: 1.5rem; margin-bottom: 2rem; }
+    .scroll-arrow { position: absolute; bottom: 2.5rem; left: 50%; transform: translateX(-50%); color: var(--muted); animation: bounce 2s infinite; transition: color .2s; }
+    .scroll-arrow:hover { color: var(--primary); }
+
+    /* ---------- GRIDS ---------- */
+    .grid-2 { display: grid; gap: 2rem; }
+    @media(min-width:768px){ .grid-2 { grid-template-columns: 1fr 1fr; gap: 3rem; } }
+    .grid-3 { display: grid; gap: 1.5rem; }
+    @media(min-width:768px){ .grid-3 { grid-template-columns: repeat(3, 1fr); } }
+    .grid-4 { display: grid; gap: 1.5rem; }
+    @media(min-width:640px){ .grid-4 { grid-template-columns: 1fr 1fr; } }
+    @media(min-width:1024px){ .grid-4 { grid-template-columns: repeat(4, 1fr); } }
+
+    .card { padding: 2rem; transition: border-color .2s, box-shadow .2s; }
+
+    .highlight-row { display: flex; align-items: center; gap: 1.25rem; padding: 1.5rem; }
+    .icon-box { padding: .5rem; border-radius: var(--radius); background: hsla(160,84%,39%,0.1); color: var(--primary); display: flex; }
+
+    /* form */
+    .form-input {
+      width: 100%; padding: .75rem 1rem; border-radius: var(--radius);
+      background: var(--secondary); border: 1px solid var(--border);
+      color: var(--fg); font-size: .875rem; font-family: inherit;
+      transition: border-color .2s; outline: none;
+    }
+    .form-input::placeholder { color: var(--muted); }
+    .form-input:focus { border-color: hsla(160,84%,39%,0.5); }
+    textarea.form-input { resize: none; }
+
+    .contact-info { display: flex; align-items: center; gap: .75rem; color: var(--muted); font-size: .875rem; }
+
+    .footer { border-top: 1px solid var(--border); padding: 2rem 0; }
+    .footer-inner { display: flex; flex-direction: column; align-items: center; gap: 1rem; }
+    @media(min-width:768px){ .footer-inner { flex-direction: row; justify-content: space-between; } }
+    .footer p { font-size: .875rem; color: var(--muted); }
+    .footer .socials { display: flex; gap: 1rem; }
+
+    .concepts-grid { display: grid; gap: .75rem; }
+    @media(min-width:640px){ .concepts-grid { grid-template-columns: 1fr 1fr; } }
+    .concept-item { display: flex; align-items: center; gap: .5rem; font-size: .875rem; color: var(--muted); }
+
+    .bullet { width: .5rem; height: .5rem; border-radius: 50%; background: var(--primary); flex-shrink: 0; margin-top: .125rem; }
+
+    .cert-link { display: inline-flex; align-items: center; gap: .5rem; font-size: .875rem; font-weight: 500; color: var(--primary); transition: text-decoration .2s; }
+    .cert-link:hover { text-decoration: underline; }
+
+    .view-link { display: inline-flex; align-items: center; gap: .5rem; font-size: .875rem; font-weight: 500; color: var(--primary); }
+    .view-link:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="navbar">
+  <div class="nav-inner">
+    <a href src="#" class="logo">&lt;UtsavKumar /&gt;</a>
+    <div class="links">
+      <a href="#about">About</a>
+      <a href="#skills">Skills</a>
+      <a href="#projects">Projects</a>
+      <a href="#education">Education</a>
+      <a href="#contact">Contact</a>
+      <a href="#contact" class="btn-primary" style="padding:.5rem 1rem;">Hire Me</a>
+    </div>
+    <button class="mobile-toggle" onclick="document.getElementById('mobileMenu').classList.toggle('open')">
+      <svg class="icon-lg" viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+  </div>
+  <div id="mobileMenu" class="mobile-menu glass-card">
+    <a href="#about" onclick="document.getElementById('mobileMenu').classList.remove('open')">About</a>
+    <a href="#skills" onclick="document.getElementById('mobileMenu').classList.remove('open')">Skills</a>
+    <a href="#projects" onclick="document.getElementById('mobileMenu').classList.remove('open')">Projects</a>
+    <a href="#education" onclick="document.getElementById('mobileMenu').classList.remove('open')">Education</a>
+    <a href="#contact" onclick="document.getElementById('mobileMenu').classList.remove('open')">Contact</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero grid-bg">
+  <div class="orb orb1 float"></div>
+  <div class="orb orb2 float" style="animation-delay:3s"></div>
+  <div class="container" style="position:relative;z-index:10;">
+    <div class="profile-img glow">
+  <img src="mypic.jpg" 
+       alt="Utsav Kumar" />
+</div>
+    <p class="mono" style="color:var(--primary);font-size:.875rem;margin-bottom:1rem;letter-spacing:.1em;">// Hello, World! I'm</p>
+    <h1><span class="text-gradient">Utsav Kumar</span></h1>
+    <p class="subtitle">A passionate <span style="color:var(--fg);font-weight:500;">Full-Stack Developer</span> building modern web experiences. Currently seeking opportunities for campus placement.</p>
+
+    <div class="buttons">
+      <a href="#contact" class="btn-primary glow">Get In Touch</a>
+      <a href="#projects" class="btn-outline">View Projects</a>
+      <a href="https://drive.google.com/file/d/1WItiS32bgp8hB0h_R7BJ-I1k4p9P5KIu/view?usp=drive_link" target="_blank" rel="noopener noreferrer" class="btn-resume">
+        <svg class="icon" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Resume
+      </a>
+    </div>
+
+    <div class="socials">
+      <a href="https://github.com/UtsavAr" target="_blank" rel="noopener noreferrer" class="icon-btn">
+        <svg class="icon" viewBox="0 0 24 24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+      </a>
+      <a href="https://www.linkedin.com/in/utsav-kumar78/" target="_blank" rel="noopener noreferrer" class="icon-btn">
+        <svg class="icon" viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+      </a>
+      <a href="mailto:utsav2942@gmail.com" class="icon-btn">
+        <svg class="icon" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+      </a>
+    </div>
+
+    <a href="#about" class="scroll-arrow">
+      <svg class="icon" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/></svg>
+    </a>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="container">
+    <div class="anim">
+      <p class="section-label">// About Me</p>
+      <h2 class="section-title">Building the <span class="text-gradient">future</span>, one line at a time</h2>
+    </div>
+    <div class="grid-2">
+      <div class="anim" style="animation-delay:.2s">
+        <p style="color:var(--muted);margin-bottom:1rem;">I'm a pre-final year B.Tech student passionate about building efficient, scalable web applications. With a strong foundation in data structures, algorithms, and modern web technologies, I'm ready to contribute to innovative teams.</p>
+        <p style="color:var(--muted);">When I'm not coding, you'll find me exploring open-source projects, participating in hackathons, or writing technical blog posts.</p>
+      </div>
+      <div class="anim" style="animation-delay:.4s;display:grid;gap:1rem;">
+        <div class="glass-card highlight-row">
+          <div class="icon-box"><svg class="icon" viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div>
+          <div><strong>5+ Projects</strong><br/><span style="font-size:.875rem;color:var(--muted);">Built with modern web technologies</span></div>
+        </div>
+        <div class="glass-card highlight-row">
+          <div class="icon-box"><svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></svg></div>
+          <div><strong>Deep Learning – IIT Ropar</strong><br/><span style="font-size:.875rem;color:var(--muted);">Certified in Oct 2025</span></div>
+        </div>
+        <div class="glass-card highlight-row">
+          <div class="icon-box"><svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></svg></div>
+          <div><strong>Web Dev with AI – Internshala</strong><br/><span style="font-size:.875rem;color:var(--muted);">Certified in Jul 2025</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="container">
+    <div class="anim">
+      <p class="section-label">// Skills</p>
+      <h2 class="section-title">My <span class="text-gradient">tech stack</span></h2>
+    </div>
+    <div class="grid-4">
+      <div class="glass-card card anim" style="min-height:180px">
+        <h3 class="mono" style="color:var(--primary);font-size:.875rem;font-weight:600;margin-bottom:1.25rem;">Languages</h3>
+        <div style="display:flex;flex-wrap:wrap;gap:.75rem;">
+          <span class="skill-tag">Python</span><span class="skill-tag">JavaScript</span><span class="skill-tag">Java</span><span class="skill-tag">C++</span><span class="skill-tag">C</span>
+        </div>
+      </div>
+      <div class="glass-card card anim" style="min-height:180px;animation-delay:.15s">
+        <h3 class="mono" style="color:var(--primary);font-size:.875rem;font-weight:600;margin-bottom:1.25rem;">Frontend</h3>
+        <div style="display:flex;flex-wrap:wrap;gap:.75rem;">
+          <span class="skill-tag">HTML</span><span class="skill-tag">CSS</span><span class="skill-tag">Bootstrap</span>
+        </div>
+      </div>
+      <div class="glass-card card anim" style="min-height:180px;animation-delay:.3s">
+        <h3 class="mono" style="color:var(--primary);font-size:.875rem;font-weight:600;margin-bottom:1.25rem;">Backend</h3>
+        <div style="display:flex;flex-wrap:wrap;gap:.75rem;">
+          <span class="skill-tag">Node.js</span><span class="skill-tag">Express</span><span class="skill-tag">MongoDB</span><span class="skill-tag">React</span>
+        </div>
+      </div>
+      <div class="glass-card card anim" style="min-height:180px;animation-delay:.45s">
+        <h3 class="mono" style="color:var(--primary);font-size:.875rem;font-weight:600;margin-bottom:1.25rem;">Tools</h3>
+        <div style="display:flex;flex-wrap:wrap;gap:.75rem;">
+          <span class="skill-tag">Git</span><span class="skill-tag">Docker</span><span class="skill-tag">Linux</span><span class="skill-tag">Maven</span><span class="skill-tag">GitHub</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="container">
+    <div class="anim">
+      <p class="section-label">// Projects</p>
+      <h2 class="section-title">Things I've <span class="text-gradient">built</span></h2>
+    </div>
+    <div class="grid-2">
+      <div class="glass-card card anim">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:1rem;">
+          <h3 style="font-size:1.125rem;font-weight:600;">Spotify Clone</h3>
+          <div style="display:flex;gap:.5rem;">
+            <a href="https://github.com/UtsavAr/Spotify-Website-Clone" target="_blank" rel="noopener noreferrer" style="color:var(--muted);transition:color .2s;"><svg class="icon" viewBox="0 0 24 24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg></a>
+          </div>
+        </div>
+        <p style="font-size:.875rem;color:var(--muted);margin-bottom:1.5rem;line-height:1.6;">A Spotify music application clone featuring a responsive UI with playlist browsing, music player controls, and a sleek dark-themed design.</p>
+        <div style="display:flex;flex-wrap:wrap;gap:.5rem;">
+          <span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">JavaScript</span>
+        </div>
+      </div>
+      <div class="glass-card card anim" style="animation-delay:.1s">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:1rem;">
+          <h3 style="font-size:1.125rem;font-weight:600;">Online Leaderboard Tracker</h3>
+        </div>
+        <p style="font-size:.875rem;color:var(--muted);margin-bottom:1.5rem;line-height:1.6;">A school-level leaderboard tracker where students can check their marks and rankings. Supports adding and deleting student entries, and allows downloading the leaderboard data as an Excel file.</p>
+        <div style="display:flex;flex-wrap:wrap;gap:.5rem;">
+          <span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">JavaScript</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section id="education">
+  <div class="container">
+    <div class="anim">
+      <p class="section-label">// Education</p>
+      <h2 class="section-title"><span class="text-gradient">Education</span></h2>
+    </div>
+    <div class="grid-3">
+      <div class="glass-card card anim">
+        <div style="display:flex;align-items:flex-start;gap:1rem;">
+          <div class="icon-box" style="margin-top:.25rem;"><svg class="icon" viewBox="0 0 24 24"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c0 1.1 2.7 2 6 2s6-.9 6-2v-5"/></svg></div>
+          <div>
+            <strong>B.Tech in Computer Science & Engineering</strong>
+            <p style="font-size:.875rem;color:var(--muted);">Lovely Professional University, Jalandhar (Punjab)</p>
+            <p style="font-size:.75rem;color:var(--muted);margin-top:.25rem;">2023 – 2027</p>
+            <p style="font-size:.875rem;color:var(--primary);font-weight:500;margin-top:.5rem;">CGPA: 6.36 / 10</p>
+          </div>
+        </div>
+      </div>
+      <div class="glass-card card anim" style="animation-delay:.15s">
+        <div style="display:flex;align-items:flex-start;gap:1rem;">
+          <div class="icon-box" style="margin-top:.25rem;"><svg class="icon" viewBox="0 0 24 24"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c0 1.1 2.7 2 6 2s6-.9 6-2v-5"/></svg></div>
+          <div>
+            <strong>Higher Secondary (XII) — CBSE</strong>
+            <p style="font-size:.875rem;color:var(--muted);">Bijendra Public School, Purnia (Bihar)</p>
+            <p style="font-size:.75rem;color:var(--muted);margin-top:.25rem;">2021 – 2022</p>
+            <p style="font-size:.875rem;color:var(--primary);font-weight:500;margin-top:.5rem;">Percentage: 67.2%</p>
+          </div>
+        </div>
+      </div>
+      <div class="glass-card card anim" style="animation-delay:.3s">
+        <div style="display:flex;align-items:flex-start;gap:1rem;">
+          <div class="icon-box" style="margin-top:.25rem;"><svg class="icon" viewBox="0 0 24 24"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c0 1.1 2.7 2 6 2s6-.9 6-2v-5"/></svg></div>
+          <div>
+            <strong>Secondary (X) — CBSE</strong>
+            <p style="font-size:.875rem;color:var(--muted);">Bijendra Public School, Purnia (Bihar)</p>
+            <p style="font-size:.75rem;color:var(--muted);margin-top:.25rem;">2019 – 2020</p>
+            <p style="font-size:.875rem;color:var(--primary);font-weight:500;margin-top:.5rem;">Percentage: 73.8%</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ACHIEVEMENTS -->
+<section id="achievements">
+  <div class="container">
+    <div class="anim">
+      <p class="section-label">// Achievements</p>
+      <h2 class="section-title"><span class="text-gradient">Achievements</span></h2>
+    </div>
+    <div class="glass-card card anim" style="max-width:48rem;padding:2.5rem;">
+      <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:1.5rem;">
+        <svg class="icon-lg" style="color:var(--primary);" viewBox="0 0 24 24"><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></svg>
+        <h3 style="font-weight:600;font-size:1.125rem;">Key Achievements</h3>
+      </div>
+      <ul style="list-style:none;display:grid;gap:1rem;">
+        <li style="display:flex;align-items:flex-start;gap:.75rem;font-size:.875rem;color:var(--muted);"><span class="bullet"></span>5+ Projects Completed</li>
+        <li style="display:flex;align-items:flex-start;gap:.75rem;font-size:.875rem;color:var(--muted);"><span class="bullet"></span>DSA Training — Lovely Professional University</li>
+        <li style="display:flex;align-items:flex-start;gap:.75rem;font-size:.875rem;color:var(--muted);"><span class="bullet"></span>Deep Learning Certification — IIT Ropar</li>
+        <li style="display:flex;align-items:flex-start;gap:.75rem;font-size:.875rem;color:var(--muted);"><span class="bullet"></span>Web Development with AI — Internshala</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- TRAINING -->
+<section id="training">
+  <div class="container">
+    <div class="anim">
+      <p class="section-label">// Training & Learning</p>
+      <h2 class="section-title">Training & <span class="text-gradient">Learning</span></h2>
+    </div>
+    <div class="glass-card card anim" style="max-width:56rem;padding:2.5rem;">
+      <div style="display:flex;align-items:flex-start;gap:1rem;margin-bottom:1.5rem;">
+        <div class="icon-box" style="padding:.75rem;"><svg class="icon-lg" viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg></div>
+        <div>
+          <h3 style="font-weight:600;font-size:1.25rem;">Data Structures & Algorithms (DSA)</h3>
+          <p style="font-size:.875rem;color:var(--muted);">Lovely Professional University, Jalandhar (Punjab)</p>
+        </div>
+      </div>
+      <p style="font-size:.875rem;color:var(--muted);line-height:1.6;margin-bottom:1.5rem;">Completed an in-depth training on Data Structures and Algorithms covering core computer science concepts. Applied the learnings to build real-world projects, including an Online Leaderboard Tracker that demonstrates sorting, searching, and dynamic data management.</p>
+      <div class="concepts-grid" style="margin-bottom:1.5rem;">
+        <div class="concept-item"><svg class="icon-sm" style="color:var(--primary);flex-shrink:0;" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>Arrays, Strings & Hashing</div>
+        <div class="concept-item"><svg class="icon-sm" style="color:var(--primary);flex-shrink:0;" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>Linked Lists & Stacks/Queues</div>
+        <div class="concept-item"><svg class="icon-sm" style="color:var(--primary);flex-shrink:0;" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>Trees, Graphs & BFS/DFS</div>
+        <div class="concept-item"><svg class="icon-sm" style="color:var(--primary);flex-shrink:0;" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>Dynamic Programming</div>
+        <div class="concept-item"><svg class="icon-sm" style="color:var(--primary);flex-shrink:0;" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>Sorting & Searching Algorithms</div>
+        <div class="concept-item"><svg class="icon-sm" style="color:var(--primary);flex-shrink:0;" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>Recursion & Backtracking</div>
+      </div>
+      <a href="https://drive.google.com/file/d/1Oc9qTde4x91mT2hlldR8O8b5Sw1aYI5K/view?usp=drive_link" target="_blank" rel="noopener noreferrer" class="view-link">
+        View Certificate <svg class="icon-sm" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- CERTIFICATIONS -->
+<section id="certifications">
+  <div class="container">
+    <div class="anim">
+      <p class="section-label">// Certifications</p>
+      <h2 class="section-title">Professional <span class="text-gradient">Certifications</span></h2>
+    </div>
+    <div class="grid-2">
+      <div class="glass-card card anim" style="display:flex;flex-direction:column;">
+        <div style="display:flex;align-items:flex-start;gap:1rem;margin-bottom:1rem;">
+          <div class="icon-box" style="margin-top:.25rem;"><svg class="icon-lg" viewBox="0 0 24 24"><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></svg></div>
+          <div>
+            <h3 style="font-weight:600;font-size:1.125rem;">Deep Learning</h3>
+            <p style="font-size:.875rem;color:var(--muted);">IIT Ropar · Oct 2025</p>
+          </div>
+        </div>
+        <p style="font-size:.875rem;color:var(--muted);line-height:1.6;margin-bottom:1.25rem;flex:1;">Comprehensive course covering neural networks, CNNs, RNNs, and modern deep learning architectures with hands-on implementation in Python.</p>
+        <a href="https://drive.google.com/file/d/1JyFn-SgQocmbx4se2_1B2IxkVEwq10zq/view?usp=drive_link" target="_blank" rel="noopener noreferrer" class="view-link">
+          View Certificate <svg class="icon-sm" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        </a>
+      </div>
+      <div class="glass-card card anim" style="display:flex;flex-direction:column;animation-delay:.15s;">
+        <div style="display:flex;align-items:flex-start;gap:1rem;margin-bottom:1rem;">
+          <div class="icon-box" style="margin-top:.25rem;"><svg class="icon-lg" viewBox="0 0 24 24"><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></svg></div>
+          <div>
+            <h3 style="font-weight:600;font-size:1.125rem;">Web Development with AI</h3>
+            <p style="font-size:.875rem;color:var(--muted);">Internshala · Jul 2025</p>
+          </div>
+        </div>
+        <p style="font-size:.875rem;color:var(--muted);line-height:1.6;margin-bottom:1.25rem;flex:1;">Industry-oriented training on building modern web applications leveraging AI tools, covering front-end, back-end, and deployment workflows.</p>
+        <a href="https://drive.google.com/file/d/1WR7SSW-jezZJreWiIO-I002Q_h7ncOQQ/view?usp=drive_link" target="_blank" rel="noopener noreferrer" class="view-link">
+          View Certificate <svg class="icon-sm" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="container">
+    <div class="anim">
+      <p class="section-label">// Contact</p>
+      <h2 class="section-title">Let's <span class="text-gradient">connect</span></h2>
+    </div>
+    <div class="grid-2">
+      <div class="anim" style="animation-delay:.2s;">
+        <p style="color:var(--muted);line-height:1.6;margin-bottom:1.5rem;">I'm currently open to internship and full-time opportunities. Feel free to reach out — I'd love to hear from you!</p>
+        <div style="display:grid;gap:1.5rem;">
+          <div class="contact-info"><svg class="icon" style="color:var(--primary);" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>utsav2942@gmail.com</div>
+          <div class="contact-info"><svg class="icon" style="color:var(--primary);" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>+91 99349 77709</div>
+          <div class="contact-info"><svg class="icon" style="color:var(--primary);" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>India</div>
+        </div>
+      </div>
+      <form class="anim" style="animation-delay:.3s;display:grid;gap:1rem;" onsubmit="event.preventDefault();alert('Message sent! I will get back to you soon.');this.reset();">
+        <input type="text" placeholder="Your Name" required class="form-input" />
+        <input type="email" placeholder="Your Email" required class="form-input" />
+        <textarea placeholder="Your Message" required rows="5" class="form-input"></textarea>
+        <button type="submit" class="btn-primary glow" style="width:fit-content;">
+          <svg class="icon" viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+          Send Message
+        </button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container footer-inner">
+    <p>© 2025 <span class="mono" style="color:var(--primary);">Utsav Kumar</span>. All rights reserved.</p>
+    <div class="socials">
+      <a href="https://github.com/UtsavAr" target="_blank" rel="noopener noreferrer" style="color:var(--muted);transition:color .2s;"><svg class="icon" viewBox="0 0 24 24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg></a>
+      <a href="https://www.linkedin.com/in/utsav-kumar78/" target="_blank" rel="noopener noreferrer" style="color:var(--muted);transition:color .2s;"><svg class="icon" viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></a>
+      <a href="mailto:utsav2942@gmail.com" style="color:var(--muted);transition:color .2s;"><svg class="icon" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></a>
+    </div>
+  </div>
+</footer>
+
+<script>
+// Navbar scroll effect
+window.addEventListener('scroll', () => {
+  document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 50);
+});
+
+// Scroll-triggered animations (replaces Framer Motion)
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.1, rootMargin: '-50px' });
+
+document.querySelectorAll('.anim').forEach(el => observer.observe(el));
+
+// Smooth scroll
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    const id = a.getAttribute('href');
+    if (id && id !== '#') {
+      e.preventDefault();
+      document.querySelector(id)?.scrollIntoView({ behavior: 'smooth' });
+    }
+  });
+});
+</script>
+</body>
+</html>
